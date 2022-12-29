@@ -1,17 +1,18 @@
 import { JobList } from '../data/jobList';
-import { JobSchema } from './schema/job';
+import { Human } from './schema/human';
 
-const jobStatus = [{ type: '전사', lv: 1, hp: [100, 100], exp: 0, atk: 10 }];
+const jobStatus = [{ type: '전사', lv: 1, hp: [100, 100], exp: 0, atk: 10, location: [0, 0] }];
 
 export class JobGenerator {
   constructor(private _job: JobList) {}
 
-  jobGenerator() {
+  jobGenerator(h: number, v: number) {
     for (let i = 0; i < jobStatus.length; i++) {
-      this._job.list.push(new JobSchema(jobStatus[i]));
+      const jobschema = new Human(jobStatus[i]);
+      jobschema.location = [Math.floor(h / 2), Math.floor(v / 2)];
+
+      this._job.list.push({ 번호: i, 스탯: jobschema });
     }
-    return (this._job.list = this._job.list.map((v, i) => {
-      return { 번호: i, 스탯: v._info };
-    }));
+    return this._job.list;
   }
 }

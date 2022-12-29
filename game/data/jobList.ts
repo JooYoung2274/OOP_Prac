@@ -1,3 +1,5 @@
+import { IUserStatusType } from '../dataType/userStatusType';
+
 export class JobList {
-  list: any[] = [];
+  list: { 번호: number; 스탯: IUserStatusType }[] = [];
 }

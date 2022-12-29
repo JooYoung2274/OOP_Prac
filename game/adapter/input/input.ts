@@ -56,7 +56,7 @@ export class Input {
   }
 
   movePhase(): void {
-    rl.question(`\n이동 :[동 / 서 / 남 / 북] \n INPUT :`, answer => {
+    rl.question(`\n이동 :[동 / 서 / 남 / 북 / 귀환] \n INPUT :`, answer => {
       const returned = this._moveDomain.moveUser(answer);
       console.log('\n');
       console.log('\n', util.inspect(returned, false, null));
@@ -71,7 +71,7 @@ export class Input {
     });
   }
 
-  npcPhase(coordinate: number[], isNpcItem): void {
+  npcPhase(coordinate: number[], isNpcItem: string): void {
     console.log('\n');
     console.log('\n==========================현재 위치 : NPC========================');
     rl.question(`\nNPC : ${isNpcItem} 이/가 있습니다. [사용 / 미사용] \n INPUT :`, answer => {
@@ -82,7 +82,7 @@ export class Input {
     });
   }
 
-  enemyPhase(coordinate: number[], isEnermyStatus): void {
+  enemyPhase(coordinate: number[], isEnermyStatus: { hp: number[]; exp: number; atk: number }): void {
     console.log('\n');
     console.log('\n========================현재 위치 : ENEMY=======================');
 
@@ -145,7 +145,7 @@ export class Input {
       return this.boxPhase(returned.location, isNpcItem);
     }
 
-    if (roomType['_info']['type'] === 'enemy') {
+    if (roomType['type'] === 'enemy') {
       const isEnemyStatus = this._enemyDomain.getEnemyStatusByCoordinate(returned.location);
       if (isEnemyStatus.hp[0] <= 0) {
         console.log('\n');

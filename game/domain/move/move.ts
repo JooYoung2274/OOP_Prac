@@ -12,8 +12,33 @@ export class MoveDomain {
     if (!isMove) {
       return false;
     }
+    const newLocation = this.returnedNewLocation(answer, isLocation);
 
-    return this._moveOutput.locationMove(answer, isLocation);
+    return this._moveOutput.locationMove(answer, newLocation);
+  }
+
+  returnedNewLocation(direction: string, isLocation: number[]): number[] {
+    if (direction === '동') {
+      return [isLocation[0], isLocation[1] + 1];
+    }
+
+    if (direction === '서') {
+      return [isLocation[0], isLocation[1] - 1];
+    }
+
+    if (direction === '남') {
+      return [isLocation[0] + 1, isLocation[1]];
+    }
+
+    if (direction === '북') {
+      return [isLocation[0] - 1, isLocation[1]];
+    }
+
+    if (direction === '귀환') {
+      const jobList = this._characterQueryOutput.getJobList();
+      return jobList[0].스탯.location;
+    }
+    return [isLocation[0], isLocation[1]];
   }
 
   isMove(direction: string, location: number[]): boolean {

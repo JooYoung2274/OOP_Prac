@@ -20,31 +20,31 @@ export class MapGenerator {
     for (let i = 0; i < h; i++) {
       for (let j = 0; j < v; j++) {
         if (i === Math.floor(h / 2) && j === Math.floor(v / 2)) {
-          this._map.list[i][j] = { roomNumber: randomNumberList[k], roomType: { type: 'plaza' } };
+          this._map.list[i][j] = { roomType: { type: 'plaza' } };
           k++;
           continue;
         }
 
         if (randomNumberList[k] <= (h * v) / 3) {
-          this._map.list[i][j] = { roomNumber: randomNumberList[k], roomType: new Npc('npc', this._itemGenerator.randomItemGenrator()) };
+          this._map.list[i][j] = { roomType: new Npc('npc', this._itemGenerator.randomItemGenrator()) };
         }
 
         if ((h * v) / 3 < randomNumberList[k] && ((h * v) / 3) * 2 >= randomNumberList[k]) {
           const enemyLV = this._etc.randomGenerator(9) + 1;
           const enemyInfo = {
-            type: 'enemy',
-            name: '나쁜놈',
+            type: `enemy`,
             lv: enemyLV,
             hp: [enemyLV * 30, enemyLV * 30],
             exp: enemyLV,
             atk: enemyLV * 5,
             location: [i, j],
           };
-          this._map.list[i][j] = { roomNumber: randomNumberList[k], roomType: new Enemy(enemyInfo) };
+          const name = `레벨${enemyLV} - 도적`;
+          this._map.list[i][j] = { roomType: new Enemy(enemyInfo, name) };
         }
 
         if (((h * v) / 3) * 2 < randomNumberList[k] && h * v >= randomNumberList[k]) {
-          this._map.list[i][j] = { roomNumber: randomNumberList[k], roomType: new Box('box', this._itemGenerator.randomItemGenrator()) };
+          this._map.list[i][j] = { roomType: new Box('box', this._itemGenerator.randomItemGenrator()) };
         }
 
         k++;

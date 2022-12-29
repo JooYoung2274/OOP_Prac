@@ -23,7 +23,8 @@ export class EnemyDomain {
     if (!randomNumber) {
       const userHp = this._characterCommandOutput.subtractUserHp(isEnermyStatus.atk);
       if (userHp <= 0) {
-        this._characterCommandOutput.updateUserLocation([10, 10]);
+        const jobList = this._characterQueryOutput.getJobList();
+        this._characterCommandOutput.updateUserLocation(jobList[0].스탯.location);
         return '죽었습니다';
       }
       return '실패';
@@ -65,7 +66,8 @@ export class EnemyDomain {
 
     // 만약 유저 체력이 0 이하로 떨어지면 유저를 광장으로 리턴시킴
     if (userHp <= 0) {
-      this._characterCommandOutput.updateUserLocation([10, 10]);
+      const jobList = this._characterQueryOutput.getJobList();
+      this._characterCommandOutput.updateUserLocation(jobList[0].스탯.location);
       return '죽었습니다';
     }
 

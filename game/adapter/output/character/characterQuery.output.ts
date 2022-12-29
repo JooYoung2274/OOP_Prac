@@ -13,6 +13,6 @@ export class CharacterQueryOutput implements ICharacterQueryOutput {
   }
 
   getUserData(): IUserStatusType {
-    return this._user.data._info;
+    return this._user.data;
   }
 }

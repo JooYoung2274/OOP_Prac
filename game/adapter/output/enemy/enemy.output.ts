@@ -6,22 +6,22 @@ export class EnemyOutput implements IEnemyOutput {
   constructor(private _map: MapList) {}
 
   getEnemyStatusByCoordinate(coordinate: number[]): any {
-    return this._map.list[coordinate[0]][coordinate[1]].roomType._info;
+    return this._map.list[coordinate[0]][coordinate[1]].roomType;
   }
 
   subtractEnemyHp(userAtk: number, coordinate: number[]): number {
-    this._map.list[coordinate[0]][coordinate[1]].roomType._info.hp[0] = this._map.list[coordinate[0]][coordinate[1]].roomType._info.hp[0] - userAtk;
+    this._map.list[coordinate[0]][coordinate[1]].roomType.hp[0] = this._map.list[coordinate[0]][coordinate[1]].roomType.hp[0] - userAtk;
 
-    if (this._map.list[coordinate[0]][coordinate[1]].roomType._info.hp[0] <= 0) {
-      this._map.list[coordinate[0]][coordinate[1]].roomType._info.hp[0] = 0;
+    if (this._map.list[coordinate[0]][coordinate[1]].roomType.hp[0] <= 0) {
+      this._map.list[coordinate[0]][coordinate[1]].roomType.hp[0] = 0;
     }
 
-    return this._map.list[coordinate[0]][coordinate[1]].roomType._info.hp[0];
+    return this._map.list[coordinate[0]][coordinate[1]].roomType.hp[0];
   }
 
   regenEnemy(coordinate: number[]): void {
     setTimeout(() => {
-      this._map.list[coordinate[0]][coordinate[1]].roomType._info.hp[0] = this._map.list[coordinate[0]][coordinate[1]].roomType._info.hp[1];
+      this._map.list[coordinate[0]][coordinate[1]].roomType.hp[0] = this._map.list[coordinate[0]][coordinate[1]].roomType.hp[1];
     }, 30000);
     return;
   }

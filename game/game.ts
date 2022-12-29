@@ -9,7 +9,7 @@ export class Game {
 
   initSetting(h: number, v: number) {
     this._map.mapGenerator(h, v);
-    this._job.jobGenerator();
+    this._job.jobGenerator(h, v);
     this._user.userGenerator(h, v);
     return;
   }

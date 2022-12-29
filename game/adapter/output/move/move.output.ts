@@ -9,23 +9,9 @@ export class MoveOutput implements IMoveOutput {
   constructor(private _user: UserData, private _map: MapList) {}
 
   locationMove(direction: string, location: number[]): IUserStatusType {
-    if (direction === '동') {
-      this._user.data._info.location = [location[0], location[1] + 1];
-    }
+    this._user.data.location = [location[0], location[1]];
 
-    if (direction === '서') {
-      this._user.data._info.location = [location[0], location[1] - 1];
-    }
-
-    if (direction === '남') {
-      this._user.data._info.location = [location[0] + 1, location[1]];
-    }
-
-    if (direction === '북') {
-      this._user.data._info.location = [location[0] - 1, location[1]];
-    }
-
-    return this._user.data._info;
+    return this._user.data;
   }
 
   getRoomTypeByUserData(userData: IUserStatusType): any {

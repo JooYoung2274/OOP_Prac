@@ -49,7 +49,7 @@ const userGenerator = new UserGenerator(userData);
 
 // 게임 시작 후
 
-// 바깥쪽 (setting)
+// 바깥쪽 (게임 세팅)
 const characterCommandOutput: ICharacterCommandOutput = new CharacterCommandOutput(jobList, userData);
 const characterQueryOutput: ICharacterQueryOutput = new CharacterQueryOutput(jobList, userData);
 const moveOutput: IMoveOutput = new MoveOutput(userData, mapList);
@@ -62,7 +62,7 @@ const moveDomain = new MoveDomain(moveOutput, characterQueryOutput);
 const npcDomain = new NpcDomain(npcOutput, characterCommandOutput);
 const enemyDomain = new EnemyDomain(enemyOutput, characterCommandOutput, characterQueryOutput, etc);
 
-// 바깥쪽2 (외부입력)
+// 바깥쪽2 (유저 입력)
 const input = new Input(charaterDomain, npcDomain, moveDomain, enemyDomain);
 
 // 최종 인스턴스
