@@ -15,6 +15,7 @@ export class Game {
   ) {}
 
   initSetting(h: number, v: number) {
+    console.log("init");
     this._map.mapGenerator(h, v);
     this._job.jobGenerator(h, v);
     this._user.userGenerator(h, v);
@@ -22,6 +23,7 @@ export class Game {
   }
 
   start(h: number, v: number) {
+    console.log("game start");
     this.initSetting(h, v);
     this._input.startPhase();
   }

@@ -17,6 +17,7 @@ export class JobGenerator {
 
       this._job.list.push({ 번호: i, 스탯: jobschema });
     }
+    console.log(this._job.list);
     return this._job.list;
   }
 }
