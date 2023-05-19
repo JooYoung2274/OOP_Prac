@@ -8,7 +8,7 @@ const jobStatus = [
 
 @Injectable()
 export class JobGenerator {
-  constructor(private _job: JobList) {}
+  constructor(readonly _job: JobList) {}
 
   jobGenerator(h: number, v: number) {
     for (let i = 0; i < jobStatus.length; i++) {

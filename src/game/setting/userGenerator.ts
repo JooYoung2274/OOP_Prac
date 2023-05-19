@@ -4,7 +4,7 @@ import { Human } from "./schema/human";
 
 @Injectable()
 export class UserGenerator {
-  constructor(private _user: UserData) {}
+  constructor(readonly _user: UserData) {}
 
   userGenerator(h: number, v: number): UserData {
     const user = new Human({
