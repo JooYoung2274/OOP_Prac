@@ -1,7 +1,9 @@
-import { MapList } from '../../../data/mapList';
+import { Injectable } from "../../../../decorators/di.decorator";
+import { MapList } from "../../../data/mapList";
 
-import { INpcOutput } from '../../../domain/npc/port/INpcOutput';
+import { INpcOutput } from "../../../domain/npc/port/INpcOutput";
 
+@Injectable()
 export class NpcOutput implements INpcOutput {
   constructor(private _map: MapList) {}
 
@@ -10,7 +12,7 @@ export class NpcOutput implements INpcOutput {
   }
 
   updateNpcItem(coordinate: number[]): void {
-    this._map.list[coordinate[0]][coordinate[1]].roomType.item = '비어있음';
+    this._map.list[coordinate[0]][coordinate[1]].roomType.item = "비어있음";
     return;
   }
 }

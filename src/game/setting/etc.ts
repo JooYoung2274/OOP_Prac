@@ -1,3 +1,6 @@
+import { Injectable } from "../../decorators/di.decorator";
+
+@Injectable()
 export class Etc {
   randomGenerator(num: number): number {
     return Math.floor(Math.random() * num);

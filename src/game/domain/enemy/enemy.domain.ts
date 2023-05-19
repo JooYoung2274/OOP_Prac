@@ -1,17 +1,22 @@
-import { IEnemyStatusType } from '../../dataType/enemyStatusType';
+import { IEnemyStatusType } from "../../dataType/enemyStatusType";
 
-import { Etc } from '../../setting/etc';
+import { Etc } from "../../setting/etc";
 
-import { IEnemyOutput } from './port/IEnemyOutput';
-import { ICharacterCommandOutput } from '../character/port/ICharacterCommandOutput';
-import { ICharacterQueryOutput } from '../character/port/ICharacterQueryOutput';
+import { IEnemyOutput } from "./port/IEnemyOutput";
+import { ICharacterCommandOutput } from "../character/port/ICharacterCommandOutput";
+import { ICharacterQueryOutput } from "../character/port/ICharacterQueryOutput";
+import { Injectable } from "../../../decorators/di.decorator";
+import { EnemyOutput } from "../../adapter/output/enemy/enemy.output";
+import { CharacterCommandOutput } from "../../adapter/output/character/characterCommand.output";
+import { CharacterQueryOutput } from "../../adapter/output/character/characterQuery.output";
 
+@Injectable()
 export class EnemyDomain {
   constructor(
-    private _enemyOutput: IEnemyOutput,
-    private _characterCommandOutput: ICharacterCommandOutput,
-    private _characterQueryOutput: ICharacterQueryOutput,
-    private _etc: Etc,
+    private _enemyOutput: EnemyOutput,
+    private _characterCommandOutput: CharacterCommandOutput,
+    private _characterQueryOutput: CharacterQueryOutput,
+    private _etc: Etc
   ) {}
 
   getEnemyStatusByCoordinate(coordinate: number[]): any {
@@ -21,19 +26,27 @@ export class EnemyDomain {
   escapeTrial(isEnermyStatus: { atk: number }): IEnemyStatusType | string {
     const randomNumber = this._etc.randomGenerator(2);
     if (!randomNumber) {
-      const userHp = this._characterCommandOutput.subtractUserHp(isEnermyStatus.atk);
+      const userHp = this._characterCommandOutput.subtractUserHp(
+        isEnermyStatus.atk
+      );
       if (userHp <= 0) {
         const jobList = this._characterQueryOutput.getJobList();
-        this._characterCommandOutput.updateUserLocation(jobList[0].스탯.location);
-        return '죽었습니다';
+        this._characterCommandOutput.updateUserLocation(
+          jobList[0].스탯.location
+        );
+        return "죽었습니다";
       }
-      return '실패';
+      return "실패";
     }
-    return '성공';
+    return "성공";
   }
 
-  fightEnemy(answer: string, coordinate: number[], isEnermyStatus: { hp: number[]; exp: number; atk: number }): string | IEnemyStatusType {
-    if (answer === '도망') {
+  fightEnemy(
+    answer: string,
+    coordinate: number[],
+    isEnermyStatus: { hp: number[]; exp: number; atk: number }
+  ): string | IEnemyStatusType {
+    if (answer === "도망") {
       return this.escapeTrial(isEnermyStatus);
     }
 
@@ -42,11 +55,16 @@ export class EnemyDomain {
     const userData = this._characterQueryOutput.getUserData();
 
     // 유저 공격력 만큼 적 체력 깎고
-    const newEnermyStatus = this._enemyOutput.subtractEnemyHp(userData.atk, coordinate);
+    const newEnermyStatus = this._enemyOutput.subtractEnemyHp(
+      userData.atk,
+      coordinate
+    );
 
     if (newEnermyStatus <= 0) {
       // 만약 적 체력이 0 이하로 떨어지면 유저의 경험치 올리고
-      const userExp = this._characterCommandOutput.updateUserExp(isEnermyStatus.exp);
+      const userExp = this._characterCommandOutput.updateUserExp(
+        isEnermyStatus.exp
+      );
 
       // 만약 유저 경험치가 10 이상이면 레벨업 + 기타 등등
       if (userExp >= 10) {
@@ -58,19 +76,21 @@ export class EnemyDomain {
 
       // 30초 뒤 다시 체력 100%으로
       this._enemyOutput.regenEnemy(coordinate);
-      return '적을 처치했습니다';
+      return "적을 처치했습니다";
     }
 
     // 적 공격력 만큼 유저 체력 깎고
-    const userHp = this._characterCommandOutput.subtractUserHp(isEnermyStatus.atk);
+    const userHp = this._characterCommandOutput.subtractUserHp(
+      isEnermyStatus.atk
+    );
 
     // 만약 유저 체력이 0 이하로 떨어지면 유저를 광장으로 리턴시킴
     if (userHp <= 0) {
       const jobList = this._characterQueryOutput.getJobList();
       this._characterCommandOutput.updateUserLocation(jobList[0].스탯.location);
-      return '죽었습니다';
+      return "죽었습니다";
     }
 
-    return '공격했습니다';
+    return "공격했습니다";
   }
 }

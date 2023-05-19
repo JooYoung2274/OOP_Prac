@@ -1,11 +1,18 @@
-import { Input } from './adapter/input/input';
+import { Injectable } from "../decorators/di.decorator";
+import { Input } from "./adapter/input/input";
 
-import { JobGenerator } from './setting/jobGenerator';
-import { MapGenerator } from './setting/mapGenerator';
-import { UserGenerator } from './setting/userGenerator';
+import { JobGenerator } from "./setting/jobGenerator";
+import { MapGenerator } from "./setting/mapGenerator";
+import { UserGenerator } from "./setting/userGenerator";
 
+@Injectable()
 export class Game {
-  constructor(private _map: MapGenerator, private _job: JobGenerator, private _user: UserGenerator, private _input: Input) {}
+  constructor(
+    private _map: MapGenerator,
+    private _job: JobGenerator,
+    private _user: UserGenerator,
+    private _input: Input
+  ) {}
 
   initSetting(h: number, v: number) {
     this._map.mapGenerator(h, v);

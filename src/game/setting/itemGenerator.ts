@@ -1,7 +1,9 @@
-import { Etc } from './etc';
+import { Injectable } from "../../decorators/di.decorator";
+import { Etc } from "./etc";
 
-export const itemData = ['sword', 'portion'];
+export const itemData = ["sword", "portion"];
 
+@Injectable()
 export class ItemGenerator {
   constructor(private _etc: Etc) {}
 
@@ -18,6 +20,6 @@ export class ItemGenerator {
   }
 
   portionGenerator(): string {
-    return 'portion';
+    return "portion";
   }
 }

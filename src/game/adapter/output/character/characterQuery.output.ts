@@ -1,10 +1,12 @@
-import { JobList } from '../../../data/jobList';
-import { UserData } from '../../../data/userData';
+import { Injectable } from "../../../../decorators/di.decorator";
+import { JobList } from "../../../data/jobList";
+import { UserData } from "../../../data/userData";
 
-import { IUserStatusType } from '../../../dataType/userStatusType';
+import { IUserStatusType } from "../../../dataType/userStatusType";
 
-import { ICharacterQueryOutput } from '../../../domain/character/port/ICharacterQueryOutput';
+import { ICharacterQueryOutput } from "../../../domain/character/port/ICharacterQueryOutput";
 
+@Injectable()
 export class CharacterQueryOutput implements ICharacterQueryOutput {
   constructor(private _job: JobList, private _user: UserData) {}
 

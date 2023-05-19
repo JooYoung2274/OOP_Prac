@@ -1,10 +1,12 @@
-import { JobList } from '../../../data/jobList';
-import { UserData } from '../../../data/userData';
+import { Injectable } from "../../../../decorators/di.decorator";
+import { JobList } from "../../../data/jobList";
+import { UserData } from "../../../data/userData";
 
-import { IUserStatusType } from '../../../dataType/userStatusType';
+import { IUserStatusType } from "../../../dataType/userStatusType";
 
-import { ICharacterCommandOutput } from '../../../domain/character/port/ICharacterCommandOutput';
+import { ICharacterCommandOutput } from "../../../domain/character/port/ICharacterCommandOutput";
 
+@Injectable()
 export class CharacterCommandOutput implements ICharacterCommandOutput {
   constructor(private _job: JobList, private _user: UserData) {}
 
@@ -29,7 +31,7 @@ export class CharacterCommandOutput implements ICharacterCommandOutput {
   }
 
   updateUserArk(item: string): void {
-    const swordAtk = Number(item.split('/')[1]);
+    const swordAtk = Number(item.split("/")[1]);
     this._user.data.atk += swordAtk;
     return;
   }

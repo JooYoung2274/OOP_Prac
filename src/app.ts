@@ -3,7 +3,7 @@ import express from "express";
 import helmet from "helmet";
 import "dotenv/config";
 import cors from "cors";
-import { registerRoutes, userController } from "./router/test.router";
+import { game } from "./router/test.router";
 
 const app = express();
 app.use(helmet());
@@ -15,7 +15,7 @@ const corsOptions = {
 };
 app.use(cors(corsOptions));
 
-registerRoutes(app, userController);
+game.start(21, 21);
 
 const port = process.env.PORT || 3000;
 app.listen(port, () => {

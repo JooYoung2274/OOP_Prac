@@ -1,8 +1,12 @@
-import { JobList } from '../data/jobList';
-import { Human } from './schema/human';
+import { Injectable } from "../../decorators/di.decorator";
+import { JobList } from "../data/jobList";
+import { Human } from "./schema/human";
 
-const jobStatus = [{ type: '전사', lv: 1, hp: [100, 100], exp: 0, atk: 10, location: [0, 0] }];
+const jobStatus = [
+  { type: "전사", lv: 1, hp: [100, 100], exp: 0, atk: 10, location: [0, 0] },
+];
 
+@Injectable()
 export class JobGenerator {
   constructor(private _job: JobList) {}
 

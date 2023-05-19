@@ -1,10 +1,12 @@
-import { MapList } from '../../../data/mapList';
-import { UserData } from '../../../data/userData';
+import { Injectable } from "../../../../decorators/di.decorator";
+import { MapList } from "../../../data/mapList";
+import { UserData } from "../../../data/userData";
 
-import { IUserStatusType } from '../../../dataType/userStatusType';
+import { IUserStatusType } from "../../../dataType/userStatusType";
 
-import { IMoveOutput } from '../../../domain/move/port/IMoveOutput';
+import { IMoveOutput } from "../../../domain/move/port/IMoveOutput";
 
+@Injectable()
 export class MoveOutput implements IMoveOutput {
   constructor(private _user: UserData, private _map: MapList) {}
 
@@ -15,7 +17,8 @@ export class MoveOutput implements IMoveOutput {
   }
 
   getRoomTypeByUserData(userData: IUserStatusType): any {
-    const isRoomType = this._map.list[userData.location[0]][userData.location[1]].roomType;
+    const isRoomType =
+      this._map.list[userData.location[0]][userData.location[1]].roomType;
 
     return isRoomType;
   }

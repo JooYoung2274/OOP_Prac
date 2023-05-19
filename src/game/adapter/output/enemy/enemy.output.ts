@@ -1,7 +1,9 @@
-import { MapList } from '../../../data/mapList';
+import { Injectable } from "../../../../decorators/di.decorator";
+import { MapList } from "../../../data/mapList";
 
-import { IEnemyOutput } from '../../../domain/enemy/port/IEnemyOutput';
+import { IEnemyOutput } from "../../../domain/enemy/port/IEnemyOutput";
 
+@Injectable()
 export class EnemyOutput implements IEnemyOutput {
   constructor(private _map: MapList) {}
 
@@ -10,7 +12,8 @@ export class EnemyOutput implements IEnemyOutput {
   }
 
   subtractEnemyHp(userAtk: number, coordinate: number[]): number {
-    this._map.list[coordinate[0]][coordinate[1]].roomType.hp[0] = this._map.list[coordinate[0]][coordinate[1]].roomType.hp[0] - userAtk;
+    this._map.list[coordinate[0]][coordinate[1]].roomType.hp[0] =
+      this._map.list[coordinate[0]][coordinate[1]].roomType.hp[0] - userAtk;
 
     if (this._map.list[coordinate[0]][coordinate[1]].roomType.hp[0] <= 0) {
       this._map.list[coordinate[0]][coordinate[1]].roomType.hp[0] = 0;
@@ -21,7 +24,8 @@ export class EnemyOutput implements IEnemyOutput {
 
   regenEnemy(coordinate: number[]): void {
     setTimeout(() => {
-      this._map.list[coordinate[0]][coordinate[1]].roomType.hp[0] = this._map.list[coordinate[0]][coordinate[1]].roomType.hp[1];
+      this._map.list[coordinate[0]][coordinate[1]].roomType.hp[0] =
+        this._map.list[coordinate[0]][coordinate[1]].roomType.hp[1];
     }, 30000);
     return;
   }
