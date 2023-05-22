@@ -1,8 +1,11 @@
 # 간단한 mud_game 설계 및 구현
 
+## 리팩토링 이력
+
 - 20230522
   - Express로 런타임 환경에서 @Injectable() 데코레이터를 통해 자동으로 의존성 주입되게 구현함
   - https://joorrr.tistory.com/25
+- 다음엔 solid원칙 중 5원칙인 DIP 구조로 구현할 수 있게 리팩토링 예정
 
 ## 개발 환경
 
