@@ -17,5 +17,5 @@ app.use(cors(corsOptions));
 
 const port = process.env.PORT || 3000;
 app.listen(port, () => {
-  game.start(21, 21);
+  game.initMethod(21, 21);
 });

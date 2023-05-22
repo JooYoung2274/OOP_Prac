@@ -9,6 +9,7 @@ class Container {
 
   resolve<T>(key: string): T {
     const targetType = this.layers.get(key);
+
     if (!targetType) {
       throw new Error(`Service not found: ${key}`);
     }

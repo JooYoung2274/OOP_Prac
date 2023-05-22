@@ -1,5 +1,6 @@
 import { Injectable } from "../../decorators/di.decorator";
-import { JobList } from "../data/jobList";
+import { jobList } from "../data";
+
 import { Human } from "./schema/human";
 
 const jobStatus = [
@@ -8,16 +9,15 @@ const jobStatus = [
 
 @Injectable()
 export class JobGenerator {
-  constructor(readonly _job: JobList) {}
+  constructor() {}
 
   jobGenerator(h: number, v: number) {
     for (let i = 0; i < jobStatus.length; i++) {
       const jobschema = new Human(jobStatus[i]);
       jobschema.location = [Math.floor(h / 2), Math.floor(v / 2)];
 
-      this._job.list.push({ 번호: i, 스탯: jobschema });
+      jobList.list.push({ 번호: i, 스탯: jobschema });
     }
-    console.log(this._job.list);
-    return this._job.list;
+    return jobList.list;
   }
 }

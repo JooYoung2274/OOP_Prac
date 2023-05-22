@@ -1,4 +1,5 @@
 import { Injectable } from "../../decorators/di.decorator";
+import { mapList } from "../data";
 import { MapList } from "../data/mapList";
 import { Etc } from "./etc";
 import { ItemGenerator } from "./itemGenerator";
@@ -9,30 +10,26 @@ import { Npc } from "./schema/npc";
 
 @Injectable()
 export class MapGenerator {
-  constructor(
-    private _itemGenerator: ItemGenerator,
-    private _etc: Etc,
-    private _map: MapList
-  ) {}
+  constructor(private _itemGenerator: ItemGenerator, private _etc: Etc) {}
 
   mapGenerator(h: number, v: number): void {
     const randomNumberList = this._etc.generateRandomNumberList(h, v);
 
     for (let i = 0; i < h; i++) {
-      this._map.list.push([]);
+      mapList.list.push([]);
     }
 
     let k = 0;
     for (let i = 0; i < h; i++) {
       for (let j = 0; j < v; j++) {
         if (i === Math.floor(h / 2) && j === Math.floor(v / 2)) {
-          this._map.list[i][j] = { roomType: { type: "plaza" } };
+          mapList.list[i][j] = { roomType: { type: "plaza" } };
           k++;
           continue;
         }
 
         if (randomNumberList[k] <= (h * v) / 3) {
-          this._map.list[i][j] = {
+          mapList.list[i][j] = {
             roomType: new Npc("npc", this._itemGenerator.randomItemGenrator()),
           };
         }
@@ -51,14 +48,14 @@ export class MapGenerator {
             location: [i, j],
           };
           const name = `레벨${enemyLV} - 도적`;
-          this._map.list[i][j] = { roomType: new Enemy(enemyInfo, name) };
+          mapList.list[i][j] = { roomType: new Enemy(enemyInfo, name) };
         }
 
         if (
           ((h * v) / 3) * 2 < randomNumberList[k] &&
           h * v >= randomNumberList[k]
         ) {
-          this._map.list[i][j] = {
+          mapList.list[i][j] = {
             roomType: new Box("box", this._itemGenerator.randomItemGenrator()),
           };
         }

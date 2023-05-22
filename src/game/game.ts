@@ -22,7 +22,7 @@ export class Game {
     return;
   }
 
-  start(h: number, v: number) {
+  initMethod(h: number, v: number) {
     console.log("game start");
     this.initSetting(h, v);
     this._input.startPhase();

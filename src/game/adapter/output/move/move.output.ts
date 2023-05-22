@@ -1,6 +1,5 @@
 import { Injectable } from "../../../../decorators/di.decorator";
-import { MapList } from "../../../data/mapList";
-import { UserData } from "../../../data/userData";
+import { mapList, userData } from "../../../data";
 
 import { IUserStatusType } from "../../../dataType/userStatusType";
 
@@ -8,17 +7,17 @@ import { IMoveOutput } from "../../../domain/move/port/IMoveOutput";
 
 @Injectable()
 export class MoveOutput implements IMoveOutput {
-  constructor(private _user: UserData, private _map: MapList) {}
+  constructor() {}
 
   locationMove(direction: string, location: number[]): IUserStatusType {
-    this._user.data.location = [location[0], location[1]];
+    userData.data.location = [location[0], location[1]];
 
-    return this._user.data;
+    return userData.data;
   }
 
   getRoomTypeByUserData(userData: IUserStatusType): any {
     const isRoomType =
-      this._map.list[userData.location[0]][userData.location[1]].roomType;
+      mapList.list[userData.location[0]][userData.location[1]].roomType;
 
     return isRoomType;
   }

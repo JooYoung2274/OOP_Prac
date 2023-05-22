@@ -1,10 +1,11 @@
 import { Injectable } from "../../decorators/di.decorator";
+import { userData } from "../data";
 import { UserData } from "../data/userData";
 import { Human } from "./schema/human";
 
 @Injectable()
 export class UserGenerator {
-  constructor(readonly _user: UserData) {}
+  constructor() {}
 
   userGenerator(h: number, v: number): UserData {
     const user = new Human({
@@ -15,7 +16,7 @@ export class UserGenerator {
       atk: 0,
       location: [Math.floor(h / 2), Math.floor(v / 2)],
     });
-    this._user.data = user;
-    return this._user;
+    userData.data = user;
+    return userData;
   }
 }
